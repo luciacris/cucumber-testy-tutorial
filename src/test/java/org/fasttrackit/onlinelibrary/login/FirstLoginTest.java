@@ -8,6 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+
 
 public class FirstLoginTest extends TestBase {
 
@@ -24,19 +27,36 @@ public class FirstLoginTest extends TestBase {
         }
     }
 
-    @Test (dependsOnMethods = "validLoginTest", alwaysRun = true)
+    @Test //(dependsOnMethods = "validLoginTest", alwaysRun = true)
     public void whenEnterInvalidPasswordIgetErrorMessage() {
         openLoginPage();
         doLogin("eu@fast.com","wrongPassword");
 
-        try {
-            WebElement messageWrongCredentials = driver.findElement(By.className("error-msg"));
-            System.out.println(messageWrongCredentials.getText());
-        }
-        catch (NoSuchElementException exception) {
-            Assert.fail("could not login. Logout button not found");
-        }
+        assertThatErrorIs("Invalid user or password!");
+    }
 
+    @Test
+    public void whenEnterNoPasswordIgetErrorMessage() {
+        openLoginPage();
+        doLogin("eu@fast.com","");
+
+        assertThatErrorIs("Please enter your password!");
+    }
+
+    @Test
+    public void whenEnterNoEmailIgetErrorMessage() {
+        openLoginPage();
+        doLogin("","test");
+
+        assertThatErrorIs("Please enter your email!");
+    }
+
+    @Test
+    public void whenEnterNoEmailAndNoPasswordIgetErrorMessage() {
+        openLoginPage();
+        doLogin("","");
+
+        assertThatErrorIs("Please enter your email!");
     }
 
     private void doLogin(String userName, String password) {
@@ -44,10 +64,10 @@ public class FirstLoginTest extends TestBase {
         emailField.sendKeys(userName);
         //Utils.sleep(2000);
 
-        WebElement passField = driver.findElement(By.id("password"));
+        WebElement passField = driver.findElement(By.name("password"));
         passField.sendKeys(password);
 
-        WebElement loginBtn = driver.findElement(By.className("btn"));
+        WebElement loginBtn = driver.findElement(By.className("login-btn"));
         loginBtn.click();
     }
 
@@ -55,4 +75,10 @@ public class FirstLoginTest extends TestBase {
         System.out.println("open login page");
         driver.get("https://rawgit.com/sdl/Testy/master/src/test/functional/app-demo/login.html");
     }
+
+    private void assertThatErrorIs(String message) {
+        WebElement messageWrongCredentials = driver.findElement(By.className("error-msg"));
+        assertThat(messageWrongCredentials.getText(), is(message));
+    }
+
 }
