@@ -44,3 +44,11 @@ Feature: Customer I can login to web site
 
   Scenario: Force logout
     Then I click on link with text "Log Out"
+
+
+
+  Scenario: add 2 numbers
+    Given I enter 5 as first number
+    And I enter 15 as second number
+    When I press add
+    Then Result should be 20
