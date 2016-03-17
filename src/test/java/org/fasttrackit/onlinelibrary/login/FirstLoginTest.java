@@ -59,6 +59,34 @@ public class FirstLoginTest extends TestBase {
         assertThatErrorIs("Please enter your email!");
     }
 
+    @Test
+    public void successChangePassword(){
+        openLoginPage();
+        doLogin("eu@fast.com","eu.pass");
+
+        WebElement preferencesButton = driver.findElement(By.xpath("//nav//button"));
+        preferencesButton.click();
+
+        Utils.sleep(300);
+
+        WebElement currentPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='password']"));
+        currentPasswordField.sendKeys("eu.pass");
+
+        WebElement newPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='newPassword']"));
+        newPasswordField.sendKeys("eu.pass2");
+
+        WebElement repeatPasswordField = driver.findElement(By.xpath("//div[@id='preferences-win']//input[@name='newPasswordRepeat']"));
+        repeatPasswordField.sendKeys("eu.pass2");
+
+        //WebElement saveButton = driver.findElement(By.xpath("//div[@id='preferences-win']//button[text()='Save']"));
+        WebElement saveButton = driver.findElement(By.cssSelector("#preferences-win button.btn-warning"));
+        saveButton.click();
+
+        WebElement worningMess = driver.findElement(By.cssSelector("#preferences-win .status-msg"));
+        assertThat(worningMess.getText(), is("Your password has been successfully changed."));
+
+    }
+
     private void doLogin(String userName, String password) {
         WebElement emailField = driver.findElement(By.id("email"));
         emailField.sendKeys(userName);
