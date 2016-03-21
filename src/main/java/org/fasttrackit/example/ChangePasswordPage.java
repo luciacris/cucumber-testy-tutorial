@@ -13,9 +13,6 @@ import static org.hamcrest.Matchers.is;
  * Created by lucia on 3/17/2016.
  */
 public class ChangePasswordPage {
-    @FindBy(how = How.XPATH, using = "//nav//button")
-    private WebElement preferencesButton;
-
     @FindBy(how = How.XPATH, using = "//div[@id='preferences-win']//input[@name='password']")
     private WebElement currentPasswordField;
 
@@ -33,12 +30,13 @@ public class ChangePasswordPage {
     private WebElement worningMess;
 
     public void changePassword(String currentPass, String newpass) {
-        preferencesButton.click();
-        Utils.sleep(300);
         currentPasswordField.sendKeys(currentPass);
         newPasswordField.sendKeys(newpass);
         repeatPasswordField.sendKeys(newpass);
         saveButton.click();
-        assertThat(worningMess.getText(), is("Your password has been successfully changed."));
+    }
+
+    public String getStatusMessage() {
+        return worningMess.getText();
     }
 }

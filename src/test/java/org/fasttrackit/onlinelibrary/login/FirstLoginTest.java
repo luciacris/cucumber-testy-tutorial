@@ -1,7 +1,5 @@
 package org.fasttrackit.onlinelibrary.login;
 
-import com.sdl.selenium.web.utils.Utils;
-import org.fasttrackit.example.ChangePasswordPage;
 import org.fasttrackit.example.LoginPage;
 import org.fasttrackit.util.TestBase;
 import org.openqa.selenium.By;
@@ -18,12 +16,10 @@ import static org.hamcrest.Matchers.is;
 public class FirstLoginTest extends TestBase {
 
     private LoginPage loginPage;
-    private ChangePasswordPage changePasswordPage;
 
     //constructor
     public FirstLoginTest() {
         loginPage = PageFactory.initElements(driver, LoginPage.class);
-        changePasswordPage = PageFactory.initElements(driver, ChangePasswordPage.class);
     }
 
     @Test
@@ -71,14 +67,6 @@ public class FirstLoginTest extends TestBase {
 
         loginPage.assertThatErrorIs("Please enter your email!");
     }
-
-    @Test
-    public void successChangePassword(){
-        openLoginPage();
-        loginPage.doLogin("eu@fast.com","eu.pass");
-        changePasswordPage.changePassword("eu.pass", "eu.pass2");
-    }
-
 
     private void openLoginPage() {
         System.out.println("open login page");
