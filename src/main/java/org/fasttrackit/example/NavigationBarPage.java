@@ -9,6 +9,8 @@ public class NavigationBarPage {
     @FindBy(how = How.XPATH, using = "//nav//button")
     private WebElement preferencesButton;
 
+    @FindBy(how = How.XPATH, using = "//nav//a[text()='Logout']")
+    private WebElement LogoutButton;
 
     public void openPreferencesWindows() {
         preferencesButton.click();

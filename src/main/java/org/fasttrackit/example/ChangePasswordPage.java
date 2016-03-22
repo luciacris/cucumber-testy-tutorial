@@ -26,13 +26,17 @@ public class ChangePasswordPage {
     private WebElement saveButton;
     //WebElement saveButton = driver.findElement(By.xpath("//div[@id='preferences-win']//button[text()='Save']"));
 
-    @FindBy(how = How.CSS, using = "#preferences-win .status-msg")
+    @FindBy(how = How.CSS, using = "#preferences-win .modal-footer.btn")
+    //@FindBy(how = How.XPATH, using = "//div[@id='preferences-win'] //button[@text()='Close']")
     private WebElement worningMess;
 
-    public void changePassword(String currentPass, String newpass) {
+    @FindBy(how = How.CSS, using = "#preferences-win .status-msg")
+    private WebElement closeButton;
+
+    public void changePassword(String currentPass, String newPass, String repeatPass) {
         currentPasswordField.sendKeys(currentPass);
-        newPasswordField.sendKeys(newpass);
-        repeatPasswordField.sendKeys(newpass);
+        newPasswordField.sendKeys(newPass);
+        repeatPasswordField.sendKeys(repeatPass);
         saveButton.click();
     }
 
