@@ -64,7 +64,7 @@ public class ChangePasswordTest extends TestBase {
         openLoginPage();
         loginPage.doLogin("eu@fast.com","eu.pass");
         navigationBarPage.openPreferencesWindows();
-        changePasswordPage.changePassword("eu@fast.com", "eu.pass2", "eu.pass22");
+        changePasswordPage.changePassword("eu.pass", "eu.pass2", "eu.pass22");
 
         String statusMessage = changePasswordPage.getStatusMessage();
         System.out.println(statusMessage);
@@ -76,7 +76,7 @@ public class ChangePasswordTest extends TestBase {
         openLoginPage();
         loginPage.doLogin("eu@fast.com","eu.pass");
         navigationBarPage.openPreferencesWindows();
-        changePasswordPage.changePassword("eu@fast.com", "", "eu.pass22");
+        changePasswordPage.changePassword("eu.pass", "", "eu.pass22");
 
         String statusMessage = changePasswordPage.getStatusMessage();
         System.out.println(statusMessage);
@@ -88,7 +88,7 @@ public class ChangePasswordTest extends TestBase {
         openLoginPage();
         loginPage.doLogin("eu@fast.com","eu.pass");
         navigationBarPage.openPreferencesWindows();
-        changePasswordPage.changePassword("eu@fast.com", "eu.pass2", "");
+        changePasswordPage.changePassword("eu.pass", "eu.pass2", "");
 
         String statusMessage = changePasswordPage.getStatusMessage();
         System.out.println(statusMessage);
@@ -121,8 +121,8 @@ public class ChangePasswordTest extends TestBase {
 
     private void openLoginPage() {
         System.out.println("open login page");
-        driver.get("file:///C:/app-demo/login.html");
-        // driver.get("https://rawgit.com/sdl/Testy/master/src/test/functional/app-demo/login.html");
+        //driver.get("file:///C:/app-demo/login.html");
+        driver.get("https://rawgit.com/sdl/Testy/master/src/test/functional/app-demo/login.html");
     }
 
 }
