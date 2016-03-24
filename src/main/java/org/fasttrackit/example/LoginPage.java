@@ -20,7 +20,7 @@ public class LoginPage {
     private WebElement loginBtn;
 
     @FindBy(how = How.CLASS_NAME, using = "error-msg")
-    WebElement errorMsg;
+    private WebElement errorMsg;
 
     public void enterEmail(String email) {
         System.out.println("enter email:" + email);
