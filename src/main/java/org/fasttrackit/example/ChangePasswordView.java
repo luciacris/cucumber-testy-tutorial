@@ -11,10 +11,12 @@ public class ChangePasswordView {
 
     private TextField repeatPasswordField = new TextField().setLabel("Repeat Password");
 
-    private Button saveButton = new Button().setElCssSelector("#preferences-win button.btn-warning");
-    //private Button saveButton = new Button().setText("Save");
+    //private Button saveButton = new Button().setElCssSelector("#preferences-win button.btn-warning");
+    private WebLocator preferenceWin = new WebLocator().setId("preferences-win");
 
-    private WebLocator worningMess =  new WebLocator("preferences-win").setClasses("status-msg");
+    private Button saveButton = new Button(preferenceWin).setText("Save");
+
+    private WebLocator worningMess =  new WebLocator(preferenceWin).setClasses("status-msg");
 
     private Button closeButton = new Button().setText("Close");
 
