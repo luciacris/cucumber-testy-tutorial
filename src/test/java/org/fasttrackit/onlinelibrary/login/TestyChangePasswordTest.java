@@ -24,6 +24,7 @@ public class TestyChangePasswordTest extends TestBase {
         String statusMessage = changePasswordPage.getStatusMessage();
         System.out.println(statusMessage);
         assertThat(statusMessage, is("Your password has been successfully changed."));
+        changePasswordPage.close();
     }
 
     @Test
@@ -112,8 +113,8 @@ public class TestyChangePasswordTest extends TestBase {
 
     private void openLoginPage() {
         System.out.println("open login page");
-        //driver.get("file:///C:/app-demo/login.html");
-        driver.get("https://rawgit.com/sdl/Testy/master/src/test/functional/app-demo/login.html");
+        driver.get("file:///C:/app-demo/login.html");
+        //driver.get("https://rawgit.com/sdl/Testy/master/src/test/functional/app-demo/login.html");
     }
 
 }
