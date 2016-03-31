@@ -20,6 +20,8 @@ public class TestyElementsTest extends TestBase{
         form.selectTech.select("Manual");
         form.stopProcessCheckBox.assertClick();
         form.withEnterCheckBox.assertClick();
+        form.withEnterLabel.assertClick();
+        form.withEnterCheckBox2.assertClick();
     }
 
     private void openPage() {
