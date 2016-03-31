@@ -1,7 +1,10 @@
 package org.fasttrackit.forms;
 
+//import com.sdl.selenium.bootstrap.form.CheckBox;
 import com.sdl.selenium.bootstrap.form.DatePicker;
+import com.sdl.selenium.bootstrap.form.SelectPicker;
 import com.sdl.selenium.web.WebLocator;
+import com.sdl.selenium.web.form.CheckBox;
 
 public class FirstFormView extends WebLocator{
 
@@ -14,13 +17,16 @@ public class FirstFormView extends WebLocator{
 
     public DatePicker datePicker = new DatePicker(this); //este definit deja o componenta care se ocupa cu calendarul
     public WebLocator selectCalendar = new WebLocator(this).setClasses("icon-calendar");
+    public SelectPicker selectTech = new SelectPicker(this).setLabel("Tech:");
+
+    private WebLocator stopProcessContainer = new WebLocator(this).setTag("div").setPosition(3);
+    public CheckBox stopProcessCheckBox = new CheckBox(stopProcessContainer);
+
+    private WebLocator withEnterContainer = new WebLocator(this).setTag("div").setPosition(4);
+    public CheckBox withEnterCheckBox = new CheckBox(withEnterContainer);
 
     public static void main(String[] args) {
         FirstFormView formView = new FirstFormView();
-
-
-
-
-        System.out.println(formView.selectCalendar.getSelector());
+        System.out.println(formView.withEnterCheckBox.getSelector());
     }
 }
