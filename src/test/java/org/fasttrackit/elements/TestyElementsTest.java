@@ -1,7 +1,11 @@
 package org.fasttrackit.elements;
 
+import com.sdl.selenium.bootstrap.form.SelectPicker;
+import com.sdl.selenium.web.WebLocator;
+import org.fasttrackit.example.DropDownList;
 import org.fasttrackit.forms.FirstFormView;
 import org.fasttrackit.util.TestBase;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Locale;
@@ -24,9 +28,35 @@ public class TestyElementsTest extends TestBase{
         form.withEnterCheckBox2.assertClick();
     }
 
+    @Test
+    public void slectTest(){
+        SelectPicker picker = new SelectPicker().setLabel("Tech:");
+
+        openPage();
+
+        String v = picker.getValue();
+        Assert.assertEquals(v, "Auto");
+        picker.select("Manual");
+        v = picker.getValue();
+        Assert.assertEquals(v, "Manual");
+    }
+
+    @Test
+    public void dropDownTest(){
+        openPage();
+
+        DropDownList downList = new DropDownList().setLabel("Teach:");
+        downList.select("Manual");
+
+        DropDownList executeDownList = new DropDownList().setLabel("Execute");
+        executeDownList.select("No");
+        System.out.println(">" + executeDownList.getValue() + "<");
+    }
+
     private void openPage() {
         //driver.get("file:///C:/app-demo/login.html");
         //driver.get("https://rawgit.com/sdl/Testy/master/src/test/functional/app-demo/login.html");
-        driver.get("https://rawgit.com/sdl/Testy/master/src/test/functional/app-demo/bootstrap/index.html");
+        //driver.get("https://rawgit.com/sdl/Testy/master/src/test/functional/app-demo/bootstrap/index.html");
+        driver.get("file:///C:/Testy/src/test/functional/app-demo/bootstrap/index.html");
     }
 }

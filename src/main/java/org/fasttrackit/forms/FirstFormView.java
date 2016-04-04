@@ -21,6 +21,7 @@ public class FirstFormView extends WebLocator{
     public WebLocator selectCalendar = new WebLocator(this).setClasses("icon-calendar");
     public SelectPicker selectTech = new SelectPicker(this).setLabel("Tech:");
 
+
     private WebLocator stopProcessContainer = new WebLocator(this).setTag("div").setPosition(3);
     public CheckBox stopProcessCheckBox = new CheckBox(stopProcessContainer);
 
