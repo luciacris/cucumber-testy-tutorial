@@ -1,8 +1,10 @@
 package org.fasttrackit.elements;
 
+import com.sdl.selenium.bootstrap.form.MultiSelect;
 import com.sdl.selenium.bootstrap.form.SelectPicker;
 import com.sdl.selenium.web.WebLocator;
 import org.fasttrackit.example.DropDownList;
+import org.fasttrackit.example.MultiSelectDropDownList;
 import org.fasttrackit.forms.FirstFormView;
 import org.fasttrackit.util.TestBase;
 import org.testng.Assert;
@@ -50,7 +52,11 @@ public class TestyElementsTest extends TestBase{
 
         DropDownList executeDownList = new DropDownList().setLabel("Execute");
         executeDownList.select("No");
-        System.out.println(">" + executeDownList.getValue() + "<");
+
+        MultiSelectDropDownList soursDownList = new MultiSelectDropDownList().setLabel("Source:");
+        soursDownList.multiSelect("Tomatoes", "Mushrooms");
+
+
     }
 
     private void openPage() {
