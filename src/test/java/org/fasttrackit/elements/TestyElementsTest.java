@@ -1,8 +1,11 @@
 package org.fasttrackit.elements;
 
+import com.sdl.selenium.bootstrap.button.UploadFile;
+import com.sdl.selenium.bootstrap.form.Form;
 import com.sdl.selenium.bootstrap.form.MultiSelect;
 import com.sdl.selenium.bootstrap.form.SelectPicker;
 import com.sdl.selenium.web.WebLocator;
+import com.sdl.selenium.web.utils.PropertiesReader;
 import org.fasttrackit.example.DropDownList;
 import org.fasttrackit.example.MultiSelectDropDownList;
 import org.fasttrackit.forms.FirstFormView;
@@ -56,6 +59,24 @@ public class TestyElementsTest extends TestBase{
         MultiSelectDropDownList soursDownList = new MultiSelectDropDownList().setLabel("Source:");
         soursDownList.multiSelect("Tomatoes", "Mushrooms");
 
+
+    }
+
+    private Form form = new Form("Form Title");
+    private UploadFile uploadBtn = new UploadFile(form, "TPT Test:");
+
+    @Test
+    public void uploadTest(){
+        openPage();
+        System.out.println(PropertiesReader.RESOURCES_DIRECTORY_PATH);
+        uploadBtn.upload("Select file", new String[]{
+                PropertiesReader.RESOURCES_DIRECTORY_PATH +"\\drivers\\upload.exe",
+                PropertiesReader.RESOURCES_DIRECTORY_PATH +"\\feature\\login\\login.feature"
+        });
+
+        //following is another upload but in most cases doesn't work
+        /*WebLocator inputUpload = new WebLocator(uploadBtn).setTag("input");
+        inputUpload.sendKeys(PropertiesReader.RESOURCES_DIRECTORY_PATH +"\\feature\\login\\login.feature");*/
 
     }
 
