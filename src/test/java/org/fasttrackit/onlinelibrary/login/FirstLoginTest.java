@@ -7,6 +7,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,6 +23,7 @@ public class FirstLoginTest extends TestBase {
         loginPage = PageFactory.initElements(driver, LoginPage.class);
     }
 
+
     @Test
     public void validLoginTest() {
         openLoginPage();
@@ -36,6 +38,25 @@ public class FirstLoginTest extends TestBase {
         }
     }
 
+    @DataProvider
+    public static Object[][] invalidLogin(){
+        return new Object[][] {
+                {"eu@fast.com", "wrongPassword", "Invalid user or password!"},
+                {"eu@fast.com", "", "Please enter your password!"},
+                {"", "test", "Please enter your email!"}
+        };
+    }
+
+    @Test(dataProvider = "invalidLogin")
+    public void invalidLoginTest(String email, String pass, String errorMsg){
+        System.out.println("run this invalid test" + email + " " + pass + " " + errorMsg);
+        openLoginPage();
+        loginPage.doLogin(email,pass);
+
+        loginPage.assertThatErrorIs(errorMsg);
+    }
+
+    //next 3 tests are done by the above one.
     @Test //(dependsOnMethods = "validLoginTest", alwaysRun = true)
     public void whenEnterInvalidPasswordIgetErrorMessage() {
         openLoginPage();
@@ -70,7 +91,8 @@ public class FirstLoginTest extends TestBase {
 
     private void openLoginPage() {
         System.out.println("open login page");
-        driver.get("https://rawgit.com/sdl/Testy/master/src/test/functional/app-demo/login.html");
+        //driver.get("https://rawgit.com/sdl/Testy/master/src/test/functional/app-demo/login.html");
+        driver.get("file:///C:/Testy/src/test/functional/app-demo/login.html");
     }
 
 }

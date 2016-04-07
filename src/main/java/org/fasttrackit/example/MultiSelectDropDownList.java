@@ -3,9 +3,6 @@ package org.fasttrackit.example;
 import com.sdl.selenium.web.SearchType;
 import com.sdl.selenium.web.WebLocator;
 
-/**
- * Created by lucia on 4/4/2016.
- */
 public class MultiSelectDropDownList extends DropDownList {
 
     public boolean multiSelect(String... values) {
