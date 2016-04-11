@@ -7,8 +7,14 @@ import com.sdl.selenium.extjs3.form.Label;
 import com.sdl.selenium.web.SearchType;
 import com.sdl.selenium.web.WebLocator;
 import com.sdl.selenium.web.form.CheckBox;
+import com.sdl.selenium.web.table.Cell;
+import com.sdl.selenium.web.table.Row;
+import com.sdl.selenium.web.table.Table;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FirstFormView extends WebLocator{
+    private static final Logger LOGGER = LoggerFactory.getLogger(FirstFormView.class);
 
     public FirstFormView() {
         setTag("form");
@@ -31,7 +37,29 @@ public class FirstFormView extends WebLocator{
     public CheckBox withEnterCheckBox2 = new CheckBox(withEnterLabel);
 
     public static void main(String[] args) {
-        FirstFormView formView = new FirstFormView();
-        System.out.println(formView.withEnterCheckBox2.getSelector());
+        LOGGER.info("Eu astazi mananc {} {}, si maine {} {}.", 2, "mere", 3, "pere");
+        /*FirstFormView formView = new FirstFormView();
+        System.out.println(formView.withEnterCheckBox2.getSelector());*/
+
+        //generateTDXpath();
+
+    }
+
+    //exemplu cu tabel
+    public static void generateTDXpath(){
+        //static = nu-i nevoie sa se faca instanta: new...si se apeleaza direct
+
+        WebLocator emailCell = new WebLocator().setText("peterparker@mail.com");
+        WebLocator row = new WebLocator().setTag("tr").setChildNodes(emailCell);
+        CheckBox select = new CheckBox(row);
+
+        LOGGER.debug(select.getXPath());
+
+        Table table = new Table();
+        Row row1 = table.getRow(new Cell(4, "peterparker@mail.com")); //4 = in a cata coloana se afla emailul dat
+        CheckBox select1 = new CheckBox(row1);
+
+        LOGGER.debug(select1.getXPath());
+
     }
 }
