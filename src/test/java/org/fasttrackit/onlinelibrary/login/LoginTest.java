@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
                 "org.fasttrackit.onlinelibrary.login"
         },
         features = {
-                "src/test/resources/feature/login/login.feature"
+                "src/test/resources/feature/login/appLogin.feature"
         }
 )
 @RunWith(Cucumber.class)

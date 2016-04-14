@@ -27,7 +27,7 @@ public class FirstLoginTest extends TestBase {
     @Test
     public void validLoginTest() {
         openLoginPage();
-        loginPage.doLogin("eu@fast.com","eu.pass");
+        loginPage.doLogin("eu@fast.com","eu.passx");
         //doLogin("eu@fast.com","eu.pass");
 
         try {

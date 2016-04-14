@@ -4,6 +4,9 @@ import com.sdl.selenium.bootstrap.button.UploadFile;
 import com.sdl.selenium.bootstrap.form.Form;
 import com.sdl.selenium.bootstrap.form.MultiSelect;
 import com.sdl.selenium.bootstrap.form.SelectPicker;
+import com.sdl.selenium.utils.config.WebDriverConfig;
+import com.sdl.selenium.utils.config.WebLocatorConfig;
+import com.sdl.selenium.web.Browser;
 import com.sdl.selenium.web.WebLocator;
 import com.sdl.selenium.web.form.TextField;
 import com.sdl.selenium.web.utils.PropertiesReader;
@@ -12,11 +15,13 @@ import org.fasttrackit.example.MultiSelectDropDownList;
 import org.fasttrackit.forms.FirstFormView;
 import org.fasttrackit.util.TestBase;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.security.Key;
 import java.util.Locale;
 
@@ -114,5 +119,25 @@ public class TestyElementsTest extends TestBase{
         //LOGGER.debug(error.getText());
 
         errorElement.assertExists();
+    }
+
+    @Test
+    public void twoBrowsers() throws IOException {
+        driver.get("https://gmail.com");
+        TextField emailField = new TextField().setPlaceholder("Enter your email");
+        emailField.setValue("invalid.email@example.com");
+
+        WebDriver driver2 = WebDriverConfig.getWebDriver(Browser.CHROME);
+        driver2.get("https://gmail.com");
+        emailField.setValue("2invalid.email@example.com");
+
+        WebDriverConfig.init(driver);
+
+        emailField.setValue("xxx.email@example.com");
+        WebDriverConfig.init(driver2);
+        driver2.close();
+
+        WebDriverConfig.init(driver);
+        emailField.setValue("lucia@example.com");
     }
 }

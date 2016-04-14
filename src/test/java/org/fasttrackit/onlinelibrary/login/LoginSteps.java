@@ -80,4 +80,10 @@ public class LoginSteps extends TestBase {
     public void resultShouldBe(int l) throws Throwable {
         Assert.assertThat("numerele nu sunt egale", x, is(l));
     }
+
+    private org.fasttrackit.example.LoginView loginPage = new org.fasttrackit.example.LoginView();
+    @When("^I login with \"([^\"]*)\"/\"([^\"]*)\"$")
+    public void iLoginWith(String email, String pass) throws Throwable {
+        loginPage.doLogin(email,pass);
+    }
 }
