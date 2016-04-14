@@ -1,5 +1,6 @@
 package org.fasttrackit.util;
 
+import com.sdl.selenium.web.utils.PropertiesReader;
 import com.sdl.selenium.web.utils.Utils;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -78,7 +79,8 @@ public abstract class TestBase {
     public static String getScreensPath() {
 //        TestProperties properties = TestProperties.getInstance();
 //        return properties.getProjectDir()+ "\\reports\\screens\\";
-        return "\\reports\\screens\\";
+        return PropertiesReader.RESOURCES_DIRECTORY_PATH +"\\..\\..\\..\\reports\\screens\\";
+        // \\.. se intoarce in urma fata de RESOURCES_DIRECTORY_PATH apoi pune \\reports\\screens\\
     }
 
     private static void startSuite() {
