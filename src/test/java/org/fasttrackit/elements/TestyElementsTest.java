@@ -2,27 +2,26 @@ package org.fasttrackit.elements;
 
 import com.sdl.selenium.bootstrap.button.UploadFile;
 import com.sdl.selenium.bootstrap.form.Form;
-import com.sdl.selenium.bootstrap.form.MultiSelect;
 import com.sdl.selenium.bootstrap.form.SelectPicker;
 import com.sdl.selenium.utils.config.WebDriverConfig;
-import com.sdl.selenium.utils.config.WebLocatorConfig;
 import com.sdl.selenium.web.Browser;
 import com.sdl.selenium.web.WebLocator;
 import com.sdl.selenium.web.form.TextField;
 import com.sdl.selenium.web.utils.PropertiesReader;
 import org.fasttrackit.example.DropDownList;
+import org.fasttrackit.example.GridsView;
 import org.fasttrackit.example.MultiSelectDropDownList;
 import org.fasttrackit.forms.FirstFormView;
 import org.fasttrackit.util.TestBase;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.security.Key;
 import java.util.Locale;
 
 
@@ -139,5 +138,36 @@ public class TestyElementsTest extends TestBase{
 
         WebDriverConfig.init(driver);
         emailField.setValue("lucia@example.com");
+    }
+
+    @Test
+    public void scrollToViewTest(){
+        GridsView gridsView = new GridsView();
+
+        gridsView.open();
+
+        WebDriverConfig.switchToLastTab();
+
+        WebLocator headerCt = new WebLocator().setClasses("x-grid-header-ct");
+        WebLocator header = new WebLocator(headerCt).setText("Manufacturer");
+        WebLocator header2 = new WebLocator(headerCt).setText("Title");
+        header2.findElement();
+        header.click();
+
+        new Actions(driver).dragAndDrop(header.currentElement, header2.currentElement).perform();
+        //.currentElement pentru ca e de tip WebLocator si in functie e nevoie de WebElement
+    }
+
+    @Test
+    public void scrollTest(){
+        GridsView gridsView = new GridsView();
+        gridsView.open("Miscellaneous", "Resizable");
+
+        WebDriverConfig.switchToLastTab();
+
+        WebLocator basicPanel = new WebLocator().setId("basic");
+        WebLocator resizableEast = new WebLocator(basicPanel).setClasses("x-resizable-handle-east");
+        resizableEast.mouseOver();
+        new Actions(driver).dragAndDropBy(resizableEast.currentElement, 300, 0).build().perform();
     }
 }
