@@ -5,6 +5,7 @@ import com.sdl.selenium.bootstrap.form.Form;
 import com.sdl.selenium.bootstrap.form.SelectPicker;
 import com.sdl.selenium.utils.config.WebDriverConfig;
 import com.sdl.selenium.web.Browser;
+import com.sdl.selenium.web.SearchType;
 import com.sdl.selenium.web.WebLocator;
 import com.sdl.selenium.web.form.TextField;
 import com.sdl.selenium.web.utils.PropertiesReader;
@@ -177,12 +178,14 @@ public class TestyElementsTest extends TestBase{
 
     @Test
     public void iterationThrouElements(){
-        driver.get("http://examples.sencha.com/extjs/6.0.2/examples/classic/view/data-view.html");
+        PropertiesReader appProperties = new PropertiesReader("src\\test\\resources\\app.properties"); //pentru a citi din fisier
+        driver.get(appProperties.getProperty("app.url"));
 
         WebLocator dataView = new WebLocator().setId("dataview-example");
         WebLocator wrap = new WebLocator(dataView).setClasses("thumb-wrap");
         WebLocator img = new WebLocator(wrap).setTag("img");
-        img.ready(); //in locul lui sleep. Se poate apela doar daca elementul e declarat ca WebLocator
+        img.ready(); //in locul lui sleep. Se poate apela doar daca elementul e declarat ca WebLocator.
+        // .ready was needed for findElements but with last version of Testy findElements waits after element to be visible on page
         LOGGER.debug(img.getSelector().toString());
 
         for(WebElement image : img.findElements()) {
@@ -211,5 +214,10 @@ public class TestyElementsTest extends TestBase{
             LOGGER.debug(title);
         }
 */
+        /*WebLocator selectElement = new WebLocator().setText(appProperties.getProperty("dataview.select.item"));
+        WebLocator wrap2 = new WebLocator().setClasses("thumb-wrap").setChildNodes(selectElement);
+        wrap2.click();*/
+        WebLocator selectWrap = new WebLocator().setClasses("thumb-wrap").setText(appProperties.getProperty("dataview.select.item"), SearchType.DEEP_CHILD_NODE);
+        selectWrap.click();
     }
 }
