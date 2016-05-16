@@ -8,13 +8,16 @@ import com.sdl.selenium.web.Browser;
 import com.sdl.selenium.web.WebLocator;
 import com.sdl.selenium.web.form.TextField;
 import com.sdl.selenium.web.utils.PropertiesReader;
+import com.sdl.selenium.web.utils.Utils;
 import org.fasttrackit.example.DropDownList;
 import org.fasttrackit.example.GridsView;
 import org.fasttrackit.example.MultiSelectDropDownList;
 import org.fasttrackit.forms.FirstFormView;
 import org.fasttrackit.util.TestBase;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +25,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -169,5 +173,43 @@ public class TestyElementsTest extends TestBase{
         WebLocator resizableEast = new WebLocator(basicPanel).setClasses("x-resizable-handle-east");
         resizableEast.mouseOver();
         new Actions(driver).dragAndDropBy(resizableEast.currentElement, 300, 0).build().perform();
+    }
+
+    @Test
+    public void iterationThrouElements(){
+        driver.get("http://examples.sencha.com/extjs/6.0.2/examples/classic/view/data-view.html");
+
+        WebLocator dataView = new WebLocator().setId("dataview-example");
+        WebLocator wrap = new WebLocator(dataView).setClasses("thumb-wrap");
+        WebLocator img = new WebLocator(wrap).setTag("img");
+        img.ready(); //in locul lui sleep. Se poate apela doar daca elementul e declarat ca WebLocator
+        LOGGER.debug(img.getSelector().toString());
+
+        for(WebElement image : img.findElements()) {
+            String title = image.getAttribute("title");
+            LOGGER.debug(title);
+        }
+
+        //img.setPosition(3); nu ar merge pentru ca nu imaginea e a treia ci div-ul thumb-wrap
+        //img.click();
+        wrap.setPosition(3);
+        LOGGER.debug(img.getSelector().toString());
+        wrap.click();
+
+        //metoda cu nativ
+      /*  Utils.sleep(2000);
+        List<WebElement> images = driver.findElements(By.cssSelector("#dataview-example img"));
+
+        //for(int i = 0; i < images.size(); i++) {
+        //    String title = images.get(i).getAttribute("title");
+        //    LOGGER.debug(title);
+        //}
+
+        //for-ul are acelasi efect ca cel de sus
+        for(WebElement image : images) {
+            String title = image.getAttribute("title");
+            LOGGER.debug(title);
+        }
+*/
     }
 }
