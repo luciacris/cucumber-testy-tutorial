@@ -12,7 +12,7 @@ public class TestyFirstLoginTest extends TestBase {
     @Test
     public void validLoginTest() {
         openLoginPage();
-        loginPage.doLogin("eu@fast.com","eu.pass1");
+        loginPage.doLogin("eu@fast.com","eu.pass");
 
         WebLink logoutBtn= new WebLink().setText("Logout");
         logoutBtn.assertClick();

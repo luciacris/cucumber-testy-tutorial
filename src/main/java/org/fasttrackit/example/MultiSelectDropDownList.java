@@ -11,11 +11,12 @@ public class MultiSelectDropDownList extends DropDownList {
 
         for (String value : values) {
             WebLocator element = new WebLocator(select).setText(value, SearchType.CHILD_NODE); //vale e copilul nu el insusi
-            element.assertClick();
+            element.click();
         }
 
-        WebLocator shadow = new WebLocator().setClasses("dropdown-backdrop");
-        shadow.assertClick();//face click pe this
+        //WebLocator shadow = new WebLocator().setClasses("dropdown-backdrop");
+        //shadow.assertClick();//face click pe this
+        click();
         return true; //daca a ajuns aici inseamna ca assert a fost cu succes asa ca e returnt true
     }
 }
